@@ -201,8 +201,7 @@
         document.getElementById("importMsg").textContent = " Import Start ";
         */
 
-
-    //lockScreen();
+        //lockScreen();
 	var dataElementsMapping = [
 		{
 			"dhis_name": "Samples Collected",
@@ -315,7 +314,63 @@
 		
 	];
 
-
+	var periodsMapping = [
+		{
+			"startDate":  "2021-01-21",
+			"endDate":    "2021-01-21",
+			"isoPeriod":    "20210121"
+		},
+		{
+			"startDate":  "2021-01-22",
+			"endDate":    "2021-01-22",
+			"isoPeriod":    "20210122"
+		},
+		{
+			"startDate":  "2021-01-23",
+			"endDate":    "2021-01-23",
+			"isoPeriod":    "20210123"
+		},
+		{
+			"startDate":  "2021-01-24",
+			"endDate":    "2021-01-24",
+			"isoPeriod":    "20210124"
+		},
+				{
+			"startDate":  "2021-01-25",
+			"endDate":    "2021-01-25",
+			"isoPeriod":    "20210125"
+		},
+		{
+			"startDate":  "2021-01-26",
+			"endDate":    "2021-01-26",
+			"isoPeriod":    "20210126"
+		},
+		{
+			"startDate":  "2021-01-27",
+			"endDate":    "2021-01-27",
+			"isoPeriod":    "20210127"
+		},
+		{
+			"startDate":  "2021-01-28",
+			"endDate":    "2021-01-28",
+			"isoPeriod":    "20210128"
+		},
+		{
+			"startDate":  "2021-01-29",
+			"endDate":    "2021-01-29",
+			"isoPeriod":    "20210129"
+		},
+		{
+			"startDate":  "2021-01-30",
+			"endDate":    "2021-01-30",
+			"isoPeriod":    "20210130"
+		},
+		{
+			"startDate":  "2021-01-31",
+			"endDate":    "2021-01-31",
+			"isoPeriod":    "20210131"
+		}		
+	];
 
 
 
@@ -331,20 +386,23 @@
 	var currentYear = currentDate.getFullYear();
 	var nextYear = currentDate.getFullYear() + 1;
 	var currentFinancialYear = currentYear + "-" + nextYear;
-	console.log( "currentFinancialYear -- " + currentFinancialYear );
+	//console.log( "currentFinancialYear -- " + currentFinancialYear );
     var proxyURL = "https://cors-anywhere.herokuapp.com/";
 	//var todayDate = '2021-01-27';
 	var tempImportDate = selectedPeriod.split("/")[2]+ "-" + selectedPeriod.split("/")[0]+ "-" + selectedPeriod.split("/")[1];
 	//alert( tempImportDate );
 	var isoPeriod = selectedPeriod.split("/")[2] + selectedPeriod.split("/")[0] + selectedPeriod.split("/")[1];
 	//alert( tempImportDate + " - " + isoPeriod );
-	for (var j = 0; j < finalOu.length; j++) {
+	
+	for (var p = 0; p < periodsMapping.length; p++) {
+	
+		for (var j = 0; j < finalOu.length; j++) {
 	
 		var postDataJson = {
 			"punjab_lgd_district_Id": finalOu[j].code,
 			"search_type": "D",
-			"start_date1": tempImportDate,
-			"dist_date": tempImportDate,
+			"start_date1": periodsMapping[p].startDate,
+			"dist_date": periodsMapping[p].endDate,
 			"type_of_area": ""
 		}
 		$.ajax({
@@ -363,8 +421,8 @@
 			{
 				//console.log( j + " -- " + finalOu[j].name + "  code -- " + finalOu[j].code + " Api Response --  " + apiResponse.sys_message + "  data -- " + apiResponse.data  );
 				if( apiResponse.response != 0 && apiResponse.data != null ){
-					console.log( " Api Response length --  " + apiResponse.data.length );
-					console.log( apiResponse );
+					//console.log( " Api Response length --  " + apiResponse.data.length );
+					//console.log( apiResponse );
 					for (var i = 0; i < apiResponse.data.length; i++) {
 						
 						/*
@@ -385,7 +443,7 @@
 
 						  if(dataElementsMapping[k].name === "sample_RTPCR_govt" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -394,7 +452,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "sample_RTPCR_private" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -403,7 +461,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "sample_rapid_antigen_test_govt" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -412,7 +470,7 @@
 						  }						 
 						  else if(dataElementsMapping[k].name === "sample_rapid_antigen_test_private" )
 						  {
-							   dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -421,7 +479,7 @@
 						  }
 						  else if( dataElementsMapping[k].name === "sample_trunat_cbnat_govt" )
 						  {
-						      dataValue.period = isoPeriod;
+						      dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -430,7 +488,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "sample_trunat_cbnat_private" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -439,7 +497,7 @@
 						  }						 						  
 						  else if(dataElementsMapping[k].name === "tested_RTPCR_govt" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -448,7 +506,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "tested_RTPCR_private" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -457,7 +515,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "tested_antigen_test_govt" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -466,7 +524,7 @@
 						  }						 
 						  else if(dataElementsMapping[k].name === "tested_antigen_test_private" )
 						  {
-                              dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -475,7 +533,7 @@
 						  }
 						  else if( dataElementsMapping[k].name === "tested_trunat_cbnat_govt" )
 						  {
-						      dataValue.period = isoPeriod;
+						      dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -484,7 +542,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "tested_trunat_cbnat_private" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -493,7 +551,7 @@
 						  }						  
 						  else if(dataElementsMapping[k].name === "positive_RTPCR_govt" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -502,7 +560,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "positive_RTPCR_private" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -511,7 +569,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "positive_antigen_test_govt" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -520,7 +578,7 @@
 						  }						 
 						  else if(dataElementsMapping[k].name === "positive_antigen_test_private" )
 						  {
-							   dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -529,7 +587,7 @@
 						  }
 						  else if( dataElementsMapping[k].name === "positive_trunat_cbnat_govt" )
 						  {
-						      dataValue.period = isoPeriod;
+						      dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -538,7 +596,7 @@
 						  }
 						  else if(dataElementsMapping[k].name === "positive_trunat_cbnat_private" )
 						  {
-							  dataValue.period = isoPeriod;
+							  dataValue.period = periodsMapping[p].isoPeriod,
 							  dataValue.dataElement = dataElementsMapping[k].id;
 							  dataValue.categoryOptionCombo = dataElementsMapping[k].categorycombo;
 							  dataValue.orgUnit = finalOu[j].id;
@@ -551,7 +609,7 @@
 				
 				}
 				else{
-					console.log( j + " -- " + finalOu[j].name + "  code -- " + finalOu[j].code + " Api Response --  " + apiResponse.sys_message + "  data -- " + apiResponse.data  );
+					//console.log( j + " -- " + finalOu[j].name + "  code -- " + finalOu[j].code + " Api Response --  " + apiResponse.sys_message + "  data -- " + apiResponse.data  );
 				
 				}
 
@@ -569,10 +627,15 @@
 		
 	}
 	
+	
+	
+	
+	}
+
         var dataValueSet = {};
         dataValueSet.dataValues = dataValues;
 		
-		console.log(" final dataValueSet : " + JSON.stringify(dataValueSet) );
+		//console.log(" final dataValueSet : " + JSON.stringify(dataValueSet) );
 		console.log(" final dataValueSet size: " + dataValueSet.dataValues.length );
 		
 		
