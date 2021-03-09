@@ -1,0 +1,37 @@
+{
+  "name": "pun_covid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jquery": "^3.5.1",
+    "moment": "^2.24.0",
+    "moment-range": "^4.0.2",
+    "node-cron": "^2.0.3",
+    "react-scripts": "^2.1.8",
+    "request": "^2.88.0",
+    "ssl-root-cas": "^1.3.1",
+    "winston": "2.2.0",
+    "xml2json": "^0.11.2",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "htmldom": "^4.0.11"
+  }
+}
